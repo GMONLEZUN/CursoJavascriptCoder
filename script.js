@@ -1,8 +1,8 @@
 
-let welcome = `Bienvenidos a la tienda de articulos de Hockey`;
+let welcome = `Bienvenidos a la tienda de artículos de Hockey`;
 
 let message = `
-Ingresá el número de producto que quieras agregar al carrito.
+Ingresá el número de producto que quieras agregar al carrito, presioná 9 si querés terminar tu compra.
 
 1. Palo de hockey $99.000.
 2. Bolso grande $89.000.
@@ -21,7 +21,7 @@ function showProducts(){
     do {
        option = prompt(message)
        if(option === "" || option === undefined || option === null || isNaN(option)){
-        alert("Ingreso inválido, por favor intente nuevamente");
+        alert("Ingreso inválido, por favor intentá nuevamente");
         continue;
        } 
 
@@ -70,30 +70,33 @@ function showProducts(){
         } while (option !== 9);
     }
     
-    function showCart(total, detalle){
-        let hayDescuento = false;
-        let descuento = 0;
-        let msgDescuento = "";
-        if(total > 100000){
-            descuento = total * 0.10;
-            total -= descuento;
-            hayDescuento = true;
-        }
-        if(descuento){
-            msgDescuento = `Tu compra supera los $100.000 por lo que te recompensamos con un 10% de descuento!`
-        }
-        let resumen = `
-        \r${msgDescuento}
-        \n
-        \r******Detalle del carrito****** 
-        \r${detalle}
-        \r--------------------------------
-        \rDescuentos: -$${descuento}
-        \r--------------------------------
-        \rTotal a pagar: $${total}
-        `;
-        alert(resumen);
+function showCart(total, detalle){
+    let hayDescuento = false;
+    let descuento = 0;
+    let msgDescuento = "";
+    if(total > 100000){
+        descuento = total * 0.10;
+        total -= descuento;
+        hayDescuento = true;
     }
+    if(descuento){
+        msgDescuento = `Tu compra supera los $100.000 por lo que te recompensamos con un 10% de descuento!`
+    }
+    let resumen = `
+    \r${msgDescuento}
+    \n
+    \r******Detalle del carrito****** 
+    \r${detalle}
+    \r--------------------------------
+    \rDescuentos: -$${descuento}
+    \r--------------------------------
+    \rTotal a pagar: $${total}
+    `;
+    alert(resumen);
+}
+
+
+
 alert(welcome)
 showProducts();
 showCart(total, detalle);
