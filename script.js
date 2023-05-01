@@ -1,102 +1,193 @@
 
+// CONSTRUCTOR DE PRODUCTOS -----------------------------------------------------------------------------------------------------
+
+let codigo = 1;
+let productos = [];
+
+function Product (codigo, nombre, descripcion, precio, categoria, stock = 0) {
+    this.codigo = codigo;
+    this.nombre = nombre;
+    this.descripcion = descripcion;
+    this.precio = precio;
+    this.categoria = categoria; 
+    this.stock = stock;
+    this.sumaIva = function(){
+        this.precio = this.precio * 1.21;
+    };
+    this.actualizarStock = function(valor){
+        this.stock += valor;
+    }
+}
+
+function newProduct(nombre, descripcion, precio, categoria){
+    let prod = new Product(codigo, nombre, descripcion, precio, categoria);
+    productos.push(prod);
+    codigo++;
+}
+
+// PRODUCTOS            -----------------------------------------------------------------------------------------------------
+
+newProduct("Palo de hockey", "Composición: Carbono 99% Medida: Grande",99000,"Palos");
+newProduct("Bolso grande", "Composición: Poliester 99% Medida: Grande",89000,"Bolsos");
+newProduct("Guante izquierdo", "Composición: Poliester 99% Medida: M",15000,"Guantes");
+newProduct("Guante derecho", "Composición: Poliester 99% Medida: S",13000,"Guantes");
+newProduct("Bocha de hockey", "color: blanco",3500,"Accesorios");
+newProduct("Medias largas", "Composición: Poliester 99% Medida: M",4000,"Accesorios");
+
+
+// MENSAJE            -----------------------------------------------------------------------------------------------------
+
 let welcome = `Bienvenidos a la tienda de artículos de Hockey`;
 
-let message = `
-Ingresá el número de producto que quieras agregar al carrito, presioná 9 si querés terminar tu compra.
+alert(welcome)
 
-1. Palo de hockey $99.000.
-2. Bolso grande $89.000.
-3. Guante mano izquierda $15.000.
-4. Guante mano derecha $16.500.
-5. Bocha de hockey $3.500.
-6. Medias largas $4.000.
-9. Ir al carrito.
+let message = `
+Ingresá el número de producto que quieras agregar al carrito, presioná 99 si querés terminar tu compra o ver el carrito.
+\n
+99. Ver el carrito.\n
 `;
 
+productos.forEach(producto => {
+message += `${producto.codigo}. ${producto.nombre} \t $${producto.precio} \n`
+});
+
+
 let option;
+let cart = [];
+let cartAux = [];
 let total = 0;
-let detalle = "";
+let numProdCart = 0;
+
+
+
+// MOSTRAR LOS PRODUCTOS            -----------------------------------------------------------------------------------------------------
 
 function showProducts(){
     do {
-       option = prompt(message)
-       if(option === "" || option === undefined || option === null || isNaN(option)){
-        alert("Ingreso inválido, por favor intentá nuevamente");
-        continue;
-       } 
+            option = prompt(message)
+            if(option === "" || option === undefined || option === null || isNaN(option)){
+                console.log("Ingreso inválido, por favor intentá nuevamente");
+                continue;
+            } 
 
-       option = Number(option);
-       switch (option) {
-        case 1:
-            total += 99000;
-            detalle += "Palo de hockey $99.000 \n";
-            alert("Producto agregado correctamente");
-            break;
-        case 2:
-            total += 89000;
-            detalle += "Bolso grande $89.000 \n";
-            alert("Producto agregado correctamente");
-            break;
+            option = Number(option);
 
-        case 3:
-            total += 15000;
-            detalle += "Guante mano izquierda $15.000 \n";
-            alert("Producto agregado correctamente");
-            break;
-       
-        case 4:
-            total += 16500;
-            detalle += "Guante mano derecha $16.500 \n";
-            alert("Producto agregado correctamente");
-            break;
+            if((option < 1 || option > productos.length) && option !== 9){
+                alert("Opción incorrecta, por favor intentá nuevamente");
+                continue;
+            } 
 
-        case 5:
-            total += 3500;
-            detalle += "Bocha de hockey $3.500 \n";
-            alert("Producto agregado correctamente");
-            break;
+            const busqueda = productos.find(producto => producto.codigo === option)
 
-        case 6:
-            total += 4000;
-            detalle += "Medias largas $4.000 \n";
-            alert("Producto agregado correctamente");
-            break;
-        case 9:
-            break;
-        default:
-            alert("La opción elegida no es válida, elegí una de las opciones disponibles.")
-            break;
+            if (busqueda !== undefined && busqueda !== 9) {
+                cart.push(busqueda)
             }
-        } while (option !== 9);
+
+        } while (option !== 99);
+        if(option === 99){
+            showCart()
+        }
     }
+
+// MOSTRAR EL CARRITO            -----------------------------------------------------------------------------------------------------
+
+function showCart(){
+    let resumen = `\r******Detalle del carrito******\n `;
+
     
-function showCart(total, detalle){
-    let hayDescuento = false;
-    let descuento = 0;
-    let msgDescuento = "";
+    cart.forEach((prod)=>{ 
+        numProdCart++;
+        cartAux.push({...prod, "numProdCart":numProdCart})
+    })
+
+    cartAux.map(prod => {
+        resumen += `\r${prod.numProdCart}. ${prod.nombre} \t $${prod.precio}\n`;
+    })
+    
+    total = cartAux.reduce((acc, prod) => acc + prod.precio,0);
+
+    resumen += `\r--------------------------------\n`
     if(total > 100000){
-        descuento = total * 0.10;
-        total -= descuento;
-        hayDescuento = true;
+        let descuento = total * 0.10
+        total -= descuento
+        resumen +=`
+        \rTu compra supera los $100.000 por lo que te recompensamos con un 10% de descuento!\n
+        \rDescuentos: -$${descuento}\n
+        \r--------------------------------\n`
     }
-    if(descuento){
-        msgDescuento = `Tu compra supera los $100.000 por lo que te recompensamos con un 10% de descuento!`
+    resumen += `\rTotal a pagar: $${total}\n`
+    
+    alert(resumen)
+    
+    cart = [];
+    cart = [...cartAux]
+    cartAux = []
+    
+    option = Number(prompt("Presioná 1 para seguir comprando\n Presioná 2 para modificar el carrito\n Presioná 3 para vaciar el carrito"))
+    
+    if(option === "" || option === undefined || option === null || isNaN(option)){
+        alert("Ingreso inválido, por favor intentá nuevamente");
+        showCart();
+    } 
+
+    verifOptions(1,3, option, showCart);
+
+    if(option === 1){
+        numProdCart = 0;
+        showProducts()
     }
-    let resumen = `
-    \r${msgDescuento}
-    \n
-    \r******Detalle del carrito****** 
-    \r${detalle}
-    \r--------------------------------
-    \rDescuentos: -$${descuento}
-    \r--------------------------------
-    \rTotal a pagar: $${total}
-    `;
-    alert(resumen);
+    if(option === 2){
+        modCart(resumen)
+    }
+    if(option === 3){
+        numProdCart = 0;
+        emptyCart()
+    }
+}
+
+// MODIFICAR EL CARRITO            -----------------------------------------------------------------------------------------------------
+
+function modCart(resumen){
+    option = Number(prompt(`Presione el número de producto que desea eliminar del carrito, o 99 para ver el carrito\n ${resumen}`))
+    if(option === "" || option === undefined || option === null || isNaN(option)){
+        alert("Ingreso inválido, por favor intentá nuevamente");
+        modCart(resumen);
+    } 
+    if (option === 99) {
+        showCart()
+    }
+    let prodIndex = cart.find(prod => prod.numProdCart === option);
+    if(prodIndex == undefined){
+        alert("Opción inválida");
+        modCart(resumen);
+    }
+    let prodDel = cart.indexOf(prodIndex);
+    cart.splice(prodDel,1)
+    alert(`Se ha eliminado el producto ${prodIndex.nombre}`)
+    numProdCart = 0;
+    showCart()
+}
+
+
+// VACIAR EL CARRITO            -----------------------------------------------------------------------------------------------------
+
+function emptyCart(){
+    cart = []
+    alert("Carrito vacio")
+    showProducts()
+}
+
+// FUNCIÓN PARA VERIFICAR LOS INPUT -----------------------------------------------------------------------------------------------------
+
+function verifOptions(min, max, opt, func){
+    if(opt < min || option > max){
+        console.log("Opción inválida")
+        func()
+    }
 }
 
 
 
-alert(welcome)
+
 showProducts();
-showCart(total, detalle);
+
