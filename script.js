@@ -48,7 +48,7 @@ Ingresá el número de producto que quieras agregar al carrito, presioná 99 si 
 `;
 
 productos.forEach(producto => {
-message += `${producto.codigo}. ${producto.nombre} \t $${producto.precio} \n`
+message += `${producto.codigo}. ${producto.nombre} \t $${precioEnMiles(producto.precio)} \n`
 });
 
 
@@ -56,7 +56,7 @@ let option;
 let cart = [];
 let cartAux = [];
 let total = 0;
-let numProdCart = 0;
+// let numProdCart = 0;
 
 
 
@@ -66,13 +66,13 @@ function showProducts(){
     do {
             option = prompt(message)
             if(option === "" || option === undefined || option === null || isNaN(option)){
-                console.log("Ingreso inválido, por favor intentá nuevamente");
+                alert("Ingreso inválido, por favor intentá nuevamente");
                 continue;
             } 
 
             option = Number(option);
 
-            if((option < 1 || option > productos.length) && option !== 9){
+            if((option < 1 || option > productos.length) && option !== 99){
                 alert("Opción incorrecta, por favor intentá nuevamente");
                 continue;
             } 
@@ -93,7 +93,7 @@ function showProducts(){
 
 function showCart(){
     let resumen = `\r******Detalle del carrito******\n `;
-
+    let numProdCart = 0;
     
     cart.forEach((prod)=>{ 
         numProdCart++;
@@ -101,7 +101,7 @@ function showCart(){
     })
 
     cartAux.map(prod => {
-        resumen += `\r${prod.numProdCart}. ${prod.nombre} \t $${prod.precio}\n`;
+        resumen += `\r${prod.numProdCart}. ${prod.nombre} \t $${precioEnMiles(prod.precio)}\n`;
     })
     
     total = cartAux.reduce((acc, prod) => acc + prod.precio,0);
@@ -112,10 +112,10 @@ function showCart(){
         total -= descuento
         resumen +=`
         \rTu compra supera los $100.000 por lo que te recompensamos con un 10% de descuento!\n
-        \rDescuentos: -$${descuento}\n
+        \rDescuentos: -$${precioEnMiles(descuento)}\n
         \r--------------------------------\n`
     }
-    resumen += `\rTotal a pagar: $${total}\n`
+    resumen += `\rTotal a pagar: $${precioEnMiles(total)}\n`
     
     alert(resumen)
     
@@ -123,7 +123,7 @@ function showCart(){
     cart = [...cartAux]
     cartAux = []
     
-    option = Number(prompt("Presioná 1 para seguir comprando\n Presioná 2 para modificar el carrito\n Presioná 3 para vaciar el carrito"))
+    option = Number(prompt("Presioná 1 para seguir comprando\nPresioná 2 para modificar el carrito\nPresioná 3 para vaciar el carrito"))
     
     if(option === "" || option === undefined || option === null || isNaN(option)){
         alert("Ingreso inválido, por favor intentá nuevamente");
@@ -133,14 +133,14 @@ function showCart(){
     verifOptions(1,3, option, showCart);
 
     if(option === 1){
-        numProdCart = 0;
+        // numProdCart = 0;
         showProducts()
     }
     if(option === 2){
         modCart(resumen)
     }
     if(option === 3){
-        numProdCart = 0;
+        // numProdCart = 0;
         emptyCart()
     }
 }
@@ -154,6 +154,7 @@ function modCart(resumen){
         modCart(resumen);
     } 
     if (option === 99) {
+        // numProdCart = 0;
         showCart()
     }
     let prodIndex = cart.find(prod => prod.numProdCart === option);
@@ -164,7 +165,7 @@ function modCart(resumen){
     let prodDel = cart.indexOf(prodIndex);
     cart.splice(prodDel,1)
     alert(`Se ha eliminado el producto ${prodIndex.nombre}`)
-    numProdCart = 0;
+    // numProdCart = 0;
     showCart()
 }
 
@@ -180,14 +181,34 @@ function emptyCart(){
 // FUNCIÓN PARA VERIFICAR LOS INPUT -----------------------------------------------------------------------------------------------------
 
 function verifOptions(min, max, opt, func){
-    if(opt < min || option > max){
-        console.log("Opción inválida")
+    if(opt < min || opt > max){
+        alert("Opción inválida")
         func()
     }
 }
 
+// FUNCIÓN PARA MOSTRAR VALOR EN MILES -----------------------------------------------------------------------------------------------------1000
+function precioEnMiles(precio){
+    precio = precio.toString().split("");
+    let decimales = []
+    let hayDecimales = false;
+    if (precio.indexOf(".") !== -1) {
+        hayDecimales = true;
+        decimales = precio.splice(precio.indexOf("."),3);
+        decimales.splice(decimales.indexOf("."),1,",")
+    }
+    let i = precio.length -1
+    while(i-3>=0){
+        i -= 3;
+        precio.splice(i+1,0,".")
+    }
+    if (hayDecimales) {
+        precio = precio.concat(decimales)
+    }
+    precio = precio.join("")
+    return precio;
 
-
+}
 
 showProducts();
 
