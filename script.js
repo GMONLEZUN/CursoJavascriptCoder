@@ -29,13 +29,13 @@ function newProduct(nameProd, description, price, category, image){
 
 // PRODUCTOS            -----------------------------------------------------------------------------------------------------
 
-newProduct("Palo TK 2023 Xtreme", "Composición: Carbono 100% Medida: 37.5\" Curva: Low Bow Es un palo flexible gracias a su composición. Su curvatura Low Bow se adapta a cualquier tipo de juego. Recomendado para jugadores profesionales.",99000,"Palos","./images/palotk.webp");
+newProduct("Palo TK 2023 Xtreme", "Composición: Carbono 100% Medida: 37.5\" Curva: Low Bow Es un palo flexible gracias a su composición. Su curvatura Low Bow se adapta a cualquier tipo de juego. Recomendado para jugadores profesionales.",99000,"Palos","./Images/palotk.webp");
 
-newProduct("Bolso TK Alpha", "Es el bolso perfecto para los jugadores profesionales. Medidas: Largo: 100 cm Ancho: 32 cm Profundidad: 18 cm",89000,"Bolsos", "./images/bolsotk.jfif");
-newProduct("Guante izquierdo Adidas Ultimate 2022", "Composición: Lycra y plástico Medida: M",15000,"Guantes", "./images/guante_adidas.jpg");
-newProduct("Guante derecho Grays Anatomic Pro", "Composición: Lycra y plástico Medida: S",13000,"Guantes", "./images/guante_grays.webp");
-newProduct("Bocha de hockey TK Essential", "color: blanco",3500,"Accesorios", "./images/bocha.jfif");
-newProduct("Medias largas Adidas", "Composición: Poliester 99% Medida: M",4000,"Accesorios", "./images/medias_adidas.jfif");
+newProduct("Bolso TK Alpha", "Es el bolso perfecto para los jugadores profesionales. Medidas: Largo: 100 cm Ancho: 32 cm Profundidad: 18 cm",89000,"Bolsos", "./Images/bolsotk.jfif");
+newProduct("Guante izquierdo Adidas Ultimate 2022", "Composición: Lycra y plástico Medida: M",15000,"Guantes", "./Images/guante_adidas.jpg");
+newProduct("Guante derecho Grays Anatomic Pro", "Composición: Lycra y plástico Medida: S",13000,"Guantes", "./Images/guante_grays.webp");
+newProduct("Bocha de hockey TK Essential", "color: blanco",3500,"Accesorios", "./Images/bocha.jfif");
+newProduct("Medias largas Adidas", "Composición: Poliester 99% Medida: M",4000,"Accesorios", "./Images/medias_adidas.jfif");
 
 
 
@@ -492,13 +492,13 @@ function showPayment(){
         formNumErrorMsg.innerText = "";
         if (formCardNum.value[0] == "4") {
             cardBrand.style.visibility = "visible";
-            cardBrand.setAttribute("src","./images/visalogo.png")
+            cardBrand.setAttribute("src","./Images/visalogo.png")
             if (!cardBrand.classList.contains('visa')) {
                 cardBrand.classList.toggle('visa');
             }
         } else if (formCardNum.value[0] == "5") {
             cardBrand.style.visibility = "visible";
-            cardBrand.setAttribute("src","./images/mastercardlogo.png")
+            cardBrand.setAttribute("src","./Images/mastercardlogo.png")
         } 
         cardNum.innerText = "";
         let valueAux = formCardNum.value.split('');
