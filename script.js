@@ -29,7 +29,7 @@ function newProduct(nameProd, description, price, category, image){
 
 // PRODUCTOS            -----------------------------------------------------------------------------------------------------
 
-newProduct("Palo TK 2023 Xtreme", "Composición: Carbono 100% Medida: 37.5\" Curva: Low Bow Es un palo flexible gracias a su composición. Su curvatura Low Bow se adapta a cualquier tipo de juego. Recomendado para jugadores profesionales.",99000,"Palos","/images/palotk.webp");
+newProduct("Palo TK 2023 Xtreme", "Composición: Carbono 100% Medida: 37.5\" Curva: Low Bow Es un palo flexible gracias a su composición. Su curvatura Low Bow se adapta a cualquier tipo de juego. Recomendado para jugadores profesionales.",99000,"Palos","./images/palotk.webp");
 
 newProduct("Bolso TK Alpha", "Es el bolso perfecto para los jugadores profesionales. Medidas: Largo: 100 cm Ancho: 32 cm Profundidad: 18 cm",89000,"Bolsos", "./images/bolsotk.jfif");
 newProduct("Guante izquierdo Adidas Ultimate 2022", "Composición: Lycra y plástico Medida: M",15000,"Guantes", "./images/guante_adidas.jpg");
