@@ -101,7 +101,7 @@ function showProducts(prods = products){
 
     addButtons.forEach(btn => {
         btn.addEventListener('click', e => {
-            addToCart(e)
+            addToCart(e);
         })
     });
 
@@ -179,7 +179,7 @@ function updateCart(){
 
     let totalValue = priceDot(cart.reduce((acc, product) => acc + product.price*product.qty,0)) 
 
-    cartTotal.innerHTML = `<span class="total">Total</span><span class="totalValue">${totalValue}</span>`
+    cartTotal.innerHTML = `<span class="total">Total</span><span class="totalValue">$${totalValue}</span>`
 
     const btnCartPay = document.createElement('BUTTON');
     btnCartPay.classList.add('cartPay');
@@ -384,18 +384,22 @@ function search(){
 
 function showPayment(){
     const paymentContainer = document.createElement('div');
-    const body = document.querySelector('body')
+    const body = document.querySelector('body');
     const paymentModal = document.createElement('div');
     
-    paymentContainer.classList.add('paymentContainer')
-    paymentModal.classList.add('paymentModal')
+    paymentContainer.classList.add('paymentContainer');
+    paymentModal.classList.add('paymentModal');
     
-    const sectionCart = document.createElement('section')
-    sectionCart.classList.add('sectionCart')
-    const sectionPay = document.createElement('section')
-    sectionPay.classList.add('sectionPay')
+    const sectionCart = document.createElement('section');
+    sectionCart.classList.add('sectionCart');
+    const sectionPay = document.createElement('section');
+    sectionPay.classList.add('sectionPay');
     const divPaymentContainer = document.createElement('div');
-    divPaymentContainer.classList.add('divPaymentContainer')
+    divPaymentContainer.classList.add('divPaymentContainer');
+
+    const sectionPayTitle = document.createElement('h2');
+    sectionPayTitle.classList.add('sectionPayTitle');
+    sectionPayTitle.innerText = 'Método de pago:'
 
     const card = document.createElement('div');
     card.classList.add('card');
@@ -411,16 +415,17 @@ function showPayment(){
     const cardBrand = document.createElement('IMG');
     cardBrand.classList.add('cardBrand');
     const cardBottomSection = document.createElement('DIV');
-    cardBottomSection.classList.add('cardBottomSection')
+    cardBottomSection.classList.add('cardBottomSection');
 
-    cardBottomSection.append(cardExp)
-    cardBottomSection.append(cardBrand)
+    cardBottomSection.append(cardExp);
+    cardBottomSection.append(cardBrand);
 
-    card.append(cardNum)
-    card.append(cardName)
-    card.append(cardBottomSection)
+    card.append(cardNum);
+    card.append(cardName);
+    card.append(cardBottomSection);
 
-    sectionPay.append(card)
+    sectionPay.append(sectionPayTitle);
+    sectionPay.append(card);
 
     const containerForm = document.createElement('div');
     containerForm.classList.add('containerForm');
@@ -482,6 +487,7 @@ function showPayment(){
     let expCheck = false;
 
     formCardNum.addEventListener('input',()=>{
+        btnFinalPay.classList.add('disabled')
         formNumErrorMsg.style.display = "none";
         formNumErrorMsg.innerText = "";
         if (formCardNum.value[0] == "4") {
@@ -517,19 +523,25 @@ function showPayment(){
         }
         if(formCardNum.value.length === 16 && !isNaN(Number(formCardNum.value))){
             cardCheck = true;
+        } else {
+            cardCheck = false;
         }
     })
 
     formCardName.addEventListener('input', ()=> {
+        btnFinalPay.classList.add('disabled')
         cardName.innerText = !formCardName.value ? "NOMBRE APELLIDO" : formCardName.value.toUpperCase();
         
         if(formCardName.value){
             nameCheck = true;
+        }else{
+            nameCheck = false;
         }
     })
 
 
     formCardExp.addEventListener('input', ()=>{
+        btnFinalPay.classList.add('disabled')
         cardExp.innerText = "vto ";
         formExpErrorMsg.innerText = ""
         let valueAux = formCardExp.value.split('');
@@ -543,7 +555,8 @@ function showPayment(){
         cardExp.innerText = !formCardExp.value || isNaN(Number(formCardExp.value))  ? "Vto. mm/aa" : `Vto. ${valueAuxArr.join('')}`;
         if (isNaN(Number(formCardExp.value) && formCardExp.value != "")) {
             formExpErrorMsg.style.display = "block";
-            formExpErrorMsg.innerText = "Fecha inválida"
+            formExpErrorMsg.innerText = "Fecha inválida";
+            expCheck = false;
         }
         const currentMonth = new Date().getMonth() + 1;  
         const currentYear = Number(String(new Date().getFullYear()).slice(2)); 
@@ -551,17 +564,19 @@ function showPayment(){
             if (Number(formCardExp.value.slice(0,2))>12 || Number(formCardExp.value.slice(0,2))<1) {
                 formExpErrorMsg.style.display = "block"
                 formExpErrorMsg.innerText = "Fecha inválida";
+                expCheck = false;
             }
-            if (Number((formCardExp.value.slice(2)) === currentYear && Number(formCardExp.value.slice(0,2)) < currentMonth)|| (Number(formCardExp.value.slice(2)) < currentYear)) {
+            if ((Number(formCardExp.value.slice(2)) === currentYear) && (Number(formCardExp.value.slice(0,2)) < currentMonth) || (Number(formCardExp.value.slice(2)) < currentYear) || (((Number(formCardExp.value.slice(2))) - currentYear) > 20)) {
                 formExpErrorMsg.style.display = "block"
                 formExpErrorMsg.innerText = "Tarjeta vencida";
+                expCheck = false;
             }
         }
 
 
-        if(!(isNaN(Number(formCardExp.value) && formCardExp.value != "")) && !(Number(formCardExp.value.slice(0,2))>12 || Number(formCardExp.value.slice(0,2))<1) && !((Number(formCardExp.value.slice(2)) === currentYear && Number(formCardExp.value.slice(0,2)) < currentMonth) || (Number(formCardExp.value.slice(2)) < currentYear))){
+        if(((!(isNaN(Number(formCardExp.value)))) && formCardExp.value != "" && ((Number(formCardExp.value.slice(2)) - currentYear) < 20)) && !(Number(formCardExp.value.slice(0,2))>12 || Number(formCardExp.value.slice(0,2))<1) && !((Number(formCardExp.value.slice(2)) === currentYear && Number(formCardExp.value.slice(0,2)) < currentMonth) || (Number(formCardExp.value.slice(2)) < currentYear))){
             expCheck = true;
-        }
+        } 
 
         if(cardCheck && expCheck && nameCheck){
             btnFinalPay.classList.remove('disabled')
@@ -572,7 +587,21 @@ function showPayment(){
         })
     })
         function renderCartPayment(){
+            const cartPaymentCloseBtn = document.createElement('BUTTON');
+            cartPaymentCloseBtn.classList.add()
+            cartPaymentCloseBtn.classList.add('cartPaymentCloseBtn')
+            cartPaymentCloseBtn.innerHTML = `<i class="fa-solid fa-xmark"></i>`;
 
+            const cartPaymentTitle = document.createElement('h2');
+            cartPaymentTitle.classList.add('cartPaymentTitle');
+            cartPaymentTitle.innerText = "Su pedido:";
+
+            sectionCart.append(cartPaymentCloseBtn);
+            sectionCart.append(cartPaymentTitle);
+
+            cartPaymentCloseBtn.addEventListener('click', ()=>{
+                closePaymentModal();
+            })
             cart.map((product, index) => {
         
                 const paymentCartProd = document.createElement('DIV');
@@ -617,7 +646,7 @@ function showPayment(){
         
             let totalValue = priceDot(cart.reduce((acc, product) => acc + product.price*product.qty,0)) 
         
-            paymentCartTotal.innerHTML = `<span class="total">Total</span><span class="paymentTotalValue">${totalValue}</span>`;
+            paymentCartTotal.innerHTML = `<span class="total">Total</span><span class="paymentTotalValue">$${totalValue}</span>`;
         
             const paymentBtnCartEmpty = document.createElement('BUTTON');
             paymentBtnCartEmpty.classList.add('paymentBtnCartEmpty');
@@ -626,7 +655,7 @@ function showPayment(){
             sectionCart.append(paymentTotalSep);
             sectionCart.append(paymentCartTotal);
             sectionCart.append(paymentBtnCartEmpty);
-            
+
             paymentModal.append(divPaymentContainer);
             paymentModal.append(sectionCart);
 
