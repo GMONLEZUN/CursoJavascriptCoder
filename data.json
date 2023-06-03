@@ -1,0 +1,281 @@
+[
+    {
+        "code":1,
+        "nameProd":"PALO TK 2022 TOTAL ONE 1.1 PLUS XTREME LATE BOW GOLD 37.5",
+        "description":"Composición: 95% carbono\nCurva: XTREME LATE BOW – 25 mm a 200 mm.\nMedida: 37,5",
+        "price":331105,
+        "category":"Palos",
+        "image":["./Images/tk2022xtreme1.jpg","./Images/tk2022xtreme2.jpg"],
+        "stock":10
+    },
+    {
+        "code":2,
+        "nameProd":"PALO GRAYS 2022 AC10 PROBOW",
+        "description":"Carbono: 100%\nMedida: 37.5",
+        "price":328050,
+        "category":"Palos",
+        "image":["./Images/grays-ac10.jpg", "./Images/graysac10-2.webp"],
+        "stock": 5
+    },
+    {
+        "code":3,
+        "nameProd":"PALO TK 2022 TOTAL TWO 1.2 LATE BOW PLUS AQUA",
+        "description":"Composición: 80% carbono - 10% F. Vidrio - 10% Aramida\nCurva: LATE BOW PLUS – 24,5 mm a 220 mm con una canaleta de 3 mm de profundidad\nMedida: 37,5",
+        "price":262085,
+        "category":"Palos",
+        "image":["./Images/tk-12-late-bow-plus-2021-1.jpg", "./Images/tk-12-late-bow-plus-2021-2.jpg"],
+        "stock": 7
+    },
+    {
+        "code":4,
+        "nameProd":"PALO BRABO 2023 ELITE 1 WTB FORGED CARBON",
+        "description":"Composición: Carbono 100%\nCurva: ELB (Extreme Low Bow)\nPeso: XL (520 - 540 gr)\nMedidas: 37.5",
+        "price":251600,
+        "category":"Palos",
+        "image":["./Images/bravo-eliteone-1.jpg","./Images/bravo-eliteone-2.jpg","./Images/bravo-eliteone-3.jpg"],
+        "stock":3
+    },
+    {
+        "code":5,
+        "nameProd":"PALO RITUAL 2022 ULTRA 95+",
+        "description":"Composición: 95% Carbono - 5% Kevlar\nCurva: Ultra Low - 24 mm a 200 mm\nPeso: Liviano\nMedidas: 37.5",
+        "price":201560,
+        "category":"Palos",
+        "image":["./Images/ritual-ultra95-1.webp","./Images/ritual-ultra95-2.jpg"],
+        "stock":15
+    },
+    {
+        "code":6,
+        "nameProd":"PALO OSAKA 2021 PRO TOUR 100 SHOW BOW",
+        "description":"Composición: 98% Carbono - 1% Kevlar - 1% Aramida\nCurva: 24 mm a 200 mm.\nMedidas: 37.5",
+        "price":205969,
+        "category":"Palos",
+        "image":["./Images/osaka-protour100-1.jpg","./Images/osaka-protour100-2.jpg"],
+        "stock":10
+    },
+    {
+        "code":7,
+        "nameProd":"PALO THE INDIAN MAHARADJA GOLD 100 EXTREME LOWBOW",
+        "description":"Composición: 100% Carbono\nCurva: 25 mm a 200 mm con canaleta\nMedidas: 37.5",
+        "price":210654,
+        "category":"Palos",
+        "image":["./Images/bravo-eliteone-1.jpg","./Images/bravo-eliteone-1.jpg"],
+        "stock":11
+    },
+    {
+        "code":8,
+        "nameProd":"PALO ADIDAS 2022 INA .1 EX",
+        "description":"Composición: 90% Carbono - 5% Fibra de Vidrio - 5% Aramida\nCurva: Baja\nMedidas: 37.5\nPeso: Light",
+        "price":226233,
+        "category":"Palos",
+        "image":["./Images/adidas2022-ina-1.jpg","./Images/adidas2022-ina-1.jpg"],
+        "stock":6
+    },
+    {
+        "code":9,
+        "nameProd":"PALO PRINCESS 2023 PREMIUM 4K 10 STAR DF",
+        "description":"Composición: Carbono 100%\nCurva: DF (Dragflick)\nPeso: XL (520 - 540 gr)\nMedidas: 37.5",
+        "price":215333,
+        "category":"Palos",
+        "image":["./Images/princess-premium-4k-10-star-1.jpg","./Images/princess-premium-4k-10-star-2.jpg"],
+        "stock":2
+    },
+    {
+        "code":10,
+        "nameProd":"PALO DITA CARBOTEC C100 3D X-BOW",
+        "description":"Composición: Carbono 100%\nCurva: X - Bow (extra baja - 25 mm)\nMedidas: 37.5",
+        "price":123555,
+        "category":"Palos",
+        "image":["./Images/dita-carbotec-1.jpg","./Images/dita-carbotec-2.jpg"],
+        "stock":5
+    },
+    {
+        "code":11,
+        "nameProd":"FUNDA GRAYS BOLSO ALPHA",
+        "description":"Medidas: Largo: 100 cm, Ancho: 32 cm, Profundidad: 18 cm",
+        "price":127430,
+        "category":"Bolsos",
+        "image":["./Images/graysbolso-alpha-1.webp","./Images/graysbolso-alpha-2.webp"],
+        "stock":11
+    },
+    {
+        "code":12,
+        "nameProd":"FUNDA RITUAL 2020 BOLSO MISSION COMBO",
+        "description":"Medidas: Altura: 102 cm, Ancho: 33 cm, Profundidad: 18 cm, Capacidad: 45 L",
+        "price":107650,
+        "category":"Bolsos",
+        "image":["./Images/funda-ritual-2020-1.webp","./Images/funda-ritual-2020-2.webp"],
+        "stock":9
+    },
+    {
+        "code":13,
+        "nameProd":"FUNDA BALLING ALTER1 LARGE",
+        "description":"Volumen: 59 litros (3356,31 in³),Dimensiones: 102 cm x 32 cm x 19 cm (40,1” x 12,6” x 7,5”)",
+        "price":115320,
+        "category":"Bolsos",
+        "image":["./Images/funda-balling-large-crimson-1.jpg","./Images/funda-balling-large-crimson-2.jpg","./Images/funda-balling-large-crimson-3.jpg"],
+        "stock":14
+    },
+    {
+        "code":14,
+        "nameProd":"FUNDA BALLING BOLSO GEN III",
+        "description":"Medidas: Largo: 102 cm Ancho: 31 cm Profundidad: 20 cm Capacidad: 46 L",
+        "price":111654,
+        "category":"Bolsos",
+        "image":["./Images/ball-web-bags-large-blue-1.jpg","./Images/ball-web-bags-large-blue-2.jpg","./Images/ball-web-bags-large-blue-3.jpg"],
+        "stock":23
+    },
+    {
+        "code":15,
+        "nameProd":"FUNDA ADIDAS BOLSO U7 LARGE",
+        "description":"Medidas: Alto: 105 cm Ancho: 30 cm Profundidad: 25 cm",
+        "price": 116320,
+        "category":"Bolsos",
+        "image":["./Images/adidas-bolso-u7-1.jpg","./Images/adidas-bolso-u7-2.jpg","./Images/adidas-bolso-u7-3.jpg"],
+        "stock":5
+    },
+    {
+        "code":16,
+        "nameProd":"FUNDA PRINCESS PREMIUM",
+        "description":"Medidas: 102 cm x 24 cm x 20 cm",
+        "price":105000,
+        "category":"Bolsos",
+        "image":["./Images/premium-negro-menta-1.jpg","./Images/premium-negro-menta-2.jpg"],
+        "stock":15
+    },
+    {
+        "code":17,
+        "nameProd":"FUNDA ADIDAS BOLSO H5 MEDIUM",
+        "description":"Medidas: Alto: 100 cm Ancho: 28 cm Profundidad: 20 cm",
+        "price":95130,
+        "category":"Bolsos",
+        "image":["./Images/bolsoadidas-verde.jpg"],
+        "stock":7
+    },
+    {
+        "code":18,
+        "nameProd":"FUNDA BALLING MEDIANA GEN III",
+        "description":"Medidas: Largo: 98 cm Ancho: 24 cm Profundidad: 17 cm Capacidad: 37 L",
+        "price":101320,
+        "category":"Bolsos",
+        "image":["./Images/ball-web-bags-medium-black-1.jpg","./Images/ball-web-bags-medium-black-2.jpg"],
+        "stock":9
+    },
+    {
+        "code":19,
+        "nameProd":"GUANTE TK TOTAL TWO 2.3 MANO DERECHA",
+        "description":"Mano derecha. Talle: L",
+        "price":29123,
+        "category":"Guantes",
+        "image":["./Images/total-two-agx-1.jpg","./Images/total-two-agx-2.jpg"],
+        "stock":25
+    },
+    {
+        "code":20,
+        "nameProd":"GUANTE TK TOTAL TWO 2.4 NEGRO MANO DERECHA",
+        "description":"Mano derecha. Talle: M",
+        "price":28523,
+        "category":"Guantes",
+        "image":["./Images/total-two-agx-1.jpg","./Images/total-two-agx-2.jpg"],
+        "stock":15
+    },
+    {
+        "code":21,
+        "nameProd":"GUANTE BRABO F5 PRO",
+        "description":"Mano derecha. Talle: S",
+        "price":25100,
+        "category":"Guantes",
+        "image":["./Images/f51-1.jpg"],
+        "stock":3
+    },
+    {
+        "code":22,
+        "nameProd":"GUANTE VLACK BUFAGO PRO",
+        "description":"Mano Izquierda. Talle: S",
+        "price":20135,
+        "category":"Guantes",
+        "image":["./Images/bufago-pro-verde.jpg"],
+        "stock":18
+    },
+    {
+        "code":23,
+        "nameProd":"GUANTE BALLING SUPREME LONG GLOVE",
+        "description":"Mano derecha. Talle: S",
+        "price":17078,
+        "category":"Guantes",
+        "image":["./Images/ball-venturelonggloveblack-1.jpg"],
+        "stock":10
+    },
+    {
+        "code":24,
+        "nameProd":"GUANTE REVES PRO 2022",
+        "description":"Mano derecha. Talle: S",
+        "price":15654,
+        "category":"Guantes",
+        "image":["./Images/guante-reves-pro-negro-1.jpg"],
+        "stock":8
+    },
+    {
+        "code":25,
+        "nameProd":"DIJE TODOHOCKEY PALITO DE PLATA CON ORO",
+        "description":"Medida: 3 cm.\nSin cadena. Dije de plata con detalle en oro",
+        "price":8250,
+        "category":"Accesorios",
+        "image":["./Images/dijedeplatath-con-oro.jpg"],
+        "stock":5
+    },
+    {
+        "code":26,
+        "nameProd":"DIJE TODOHOCKEY DE ACERO QUIRÚRGICO JUGADORA CIRCULO",
+        "description":"Medidas: 2 cm x 2 cm\nSin cadena. Dije de acero quirúrgico.",
+        "price":5290,
+        "category":"Accesorios",
+        "image":["./Images/jugadora-dije.jpg"],
+        "stock":8
+    },
+    {
+        "code":27,
+        "nameProd":"TARJETAS DE ARBITRO MALIK",
+        "description":"Tarjetas para árbitros de hockey.",
+        "price":4500,
+        "category":"Accesorios",
+        "image":["./Images/tarjetas-arbitro-malik1.jpg"],
+        "stock":9
+    },
+    {
+        "code":28,
+        "nameProd":"VINCHA TK",
+        "description":"Talle único. Expansible. Ancho: 1 cm",
+        "price":2620,
+        "category":"Accesorios",
+        "image":["./Images/vincha-tk-tienda-nube1.jpg"],
+        "stock":50
+    },
+    {
+        "code":29,
+        "nameProd":"BOCHA TK T 1 DIMPLE",
+        "description":"Color: blanco",
+        "price":4830,
+        "category":"Accesorios",
+        "image":["./Images/bocha-tk-dimple-blanca.jpg"],
+        "stock":65
+    },
+    {
+        "code":30,
+        "nameProd":"BOCHA TK GLITTER",
+        "description":"Color: glitter rosa",
+        "price":2500,
+        "category":"Accesorios",
+        "image":["./Images/bocha-tk_0000_glitter-rosa.jpg"],
+        "stock":19
+    },
+    {
+        "code":31,
+        "nameProd":"BOCHA MALIK DISCO / GLITTER",
+        "description":"Color: rosa",
+        "price": 1668,
+        "category":"Accesorios",
+        "image":["./Images/bocha-rosa.jpg"],
+        "stock":14
+    }   
+]

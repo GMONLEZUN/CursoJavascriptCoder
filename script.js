@@ -80,37 +80,13 @@ function showProducts(prods = products){
 
         principal.append(containerProd)
     })
-    // AGREGAR PRODUCTO DEL CARRITO-----------------------------------------------------------------------------------------------------
-
-    const addButtons = document.querySelectorAll('.btnAdd');
-
-
-    function addToCart(e){
-        let prodCart = {};
-
-        if(cart.find(prod => prod.code === products[e.target.getAttribute('data-prodIndex')].code)){
-            let index = cart.findIndex(prod => prod.code === products[e.target.getAttribute('data-prodIndex')].code)
-            cart[index]["qty"] += 1; 
-        } else {
-            prodCart = {...products[e.target.getAttribute('data-prodIndex')], "qty": 1}
-            cart.push(prodCart)
-        }
-
-        updateCart()
-    }
-
-    addButtons.forEach(btn => {
-        btn.addEventListener('click', e => {
-            addToCart(e);
-        })
-    });
-
-
 }
 
 
 const cartIcon = document.querySelector('.fa-cart-shopping');
 const cartContProds = document.querySelector('.cartContProds');
+
+// ACTUALIZAR CARRITO     -----------------------------------------------------------------------------------------------------
 
 function updateCart(){
  
@@ -255,7 +231,7 @@ function deleteProdCart(e){
 
 
 
-// MODAL CART           -----------------------------------------------------------------------------------------------------
+// MODAL CART EVENTOS        -----------------------------------------------------------------------------------------------------
 
 const btnCart = document.querySelector('.cart-container');
 const modalCart = document.querySelector('.modal-cart')
@@ -267,6 +243,7 @@ function toggleModal(){
     modalCart.classList.toggle('active');
     updateCart();
 }
+
 btnCart.addEventListener('click',()=>{
     modalCart.classList.toggle('active');
     updateCart();
@@ -313,11 +290,37 @@ function priceDot(price){
 
 showProducts();
 let cartJSON = localStorage.getItem("cartStored")
-    
+
 if (cartJSON){
     cart = JSON.parse(cartJSON)  
     updateCart()  
 }
+
+// AGREGAR PRODUCTO DEL CARRITO-----------------------------------------------------------------------------------------------------
+
+const addButtons = document.querySelectorAll('.btnAdd');
+
+
+function addToCart(e){
+    let prodCart = {};
+
+    if(cart.find(prod => prod.code === products[e.target.getAttribute('data-prodIndex')].code)){
+        let index = cart.findIndex(prod => prod.code === products[e.target.getAttribute('data-prodIndex')].code)
+        cart[index]["qty"] += 1; 
+    } else {
+        prodCart = {...products[e.target.getAttribute('data-prodIndex')], "qty": 1}
+        cart.push(prodCart)
+    }
+
+    updateCart()
+}
+
+addButtons.forEach(btn => {
+    btn.addEventListener('click', e => {
+        addToCart(e);
+    })
+});
+
 
 // CATEGORIAS -----------------------------------------------------------------------------------------------------
 
@@ -673,7 +676,6 @@ function showPayment(){
             
             const paymentCartDeleteButtons = document.querySelectorAll('.paymentDeleteBtn');
             
-            // const paymentCartProds = document.querySelectorAll('.paymentCartProd')
         
             paymentCartDeleteButtons.forEach(btn => {
                 btn.addEventListener('click', (e) => {
