@@ -493,7 +493,7 @@ footer i{
 
 /* PAYMENT ----------------------------------------------------------------------------------------------------- */
 .paymentContainer{
-    position: absolute;
+    position: fixed;
     top: 0;
     width: 100vw;
     height: 100vh;
@@ -501,6 +501,7 @@ footer i{
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
 }
 .paymentModal{
     width: 88%;
@@ -588,7 +589,7 @@ footer i{
 }
 
 .card {
-    width: 95%;
+    width: 330px;
     height: 200px;
     background-color: #252525;
     color: white;

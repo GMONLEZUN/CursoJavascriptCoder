@@ -658,7 +658,7 @@ function showPayment(){
                 showCloseButton: true,
             })
             e.target.classList.add('paid');
-            e.target.innerHTML = `<i class="fa-solid fa-check"></i> ¡Pagado!`
+            e.target.innerHTML = `<i class="fa-solid fa-check"></i> ¡Pagado!`;
             closePaymentModal();
             emptyCart();
 
@@ -668,7 +668,7 @@ function showPayment(){
             const cartPaymentCloseBtn = document.createElement('BUTTON');
             cartPaymentCloseBtn.classList.add()
             cartPaymentCloseBtn.classList.add('cartPaymentCloseBtn')
-            cartPaymentCloseBtn.innerHTML = `<i class="fa-solid fa-xmark"></i>`;
+            cartPaymentCloseBtn.innerHTML = `<i class="fa-solid fa-xmark paymentClose"></i>`;
 
             const cartPaymentTitle = document.createElement('h2');
             cartPaymentTitle.classList.add('cartPaymentTitle');
@@ -680,6 +680,8 @@ function showPayment(){
             cartPaymentCloseBtn.addEventListener('click', ()=>{
                 closePaymentModal();
             })
+
+          
             cart.map((product, index) => {
         
                 const paymentCartProd = document.createElement('DIV');
@@ -762,10 +764,17 @@ function showPayment(){
 
         renderCartPayment()
 
-        function closePaymentModal(){
-            const paymentContainer = document.querySelector('.paymentContainer');
-            paymentContainer.style.display = 'none';
-        }
+        const paymentClose = document.querySelector('.paymentClose');
+        paymentClose.addEventListener('click', ()=>{
+            closePaymentModal();
+        })
+        
+
+    }
+
+function closePaymentModal(){
+    const paymentContainer = document.querySelector('.paymentContainer');
+    paymentContainer.style.display = 'none';
 }
 
 function imgSwitch(){
