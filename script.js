@@ -178,9 +178,26 @@ function updateCart(){
         const cartProdTitle = document.createElement('P');
         cartProdTitle.classList.add('cartProd-title');
         
+        const btnMinusCart = document.createElement("BUTTON");
+        btnMinusCart.classList.add('btnMinusCart');
+        btnMinusCart.setAttribute("data-cartProdIndex",index)
+        btnMinusCart.innerHTML = `<i class="fa-solid fa-minus"></i>`;
+        
         const cartProdQty = document.createElement('P');
         cartProdQty.classList.add('cartProd-qty');
         
+        const btnPlusCart = document.createElement("BUTTON");
+        btnPlusCart.classList.add('btnPlusCart');
+        btnPlusCart.setAttribute("data-cartProdIndex",index)
+        btnPlusCart.innerHTML = `<i class="fa-solid fa-plus"></i>`;
+
+        const containerQtyCart = document.createElement("DIV");
+        containerQtyCart.classList.add('containerQtyCart')
+
+        containerQtyCart.append(btnMinusCart)
+        containerQtyCart.append(cartProdQty)
+        containerQtyCart.append(btnPlusCart)
+
         const cartProdPrice = document.createElement('P');
         cartProdPrice.classList.add('cartProd-price');
         
@@ -195,7 +212,7 @@ function updateCart(){
         
         cartProd.append(cartProdImg);
         cartProd.append(cartProdTitle);
-        cartProd.append(cartProdQty);
+        cartProd.append(containerQtyCart);
         cartProd.append(cartProdPrice);
         cartProd.append(cartProdBtnDelete);
 
@@ -237,7 +254,23 @@ function updateCart(){
     cartDeleteButtons.forEach(btn => {
         btn.addEventListener('click', (e) => {
             deleteProdCart(e)
-    })});
+        })
+    });
+
+    const btnsMinusCart = document.querySelectorAll('.btnMinusCart')
+    const btnsPlusCart = document.querySelectorAll('.btnPlusCart')
+
+    btnsMinusCart.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            reduceCartProd(e)
+        })
+    });
+
+    btnsPlusCart.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            incrementCartProd(e)
+        })
+    });
 
     // Icono del carrito con el contador de productos
 
@@ -278,11 +311,11 @@ function emptyCart(){
 
 function deleteProdCart(e){
 
-    if (cart[e.target.getAttribute('data-cartProdIndex')]['qty']> 1) {
-        cart[e.target.getAttribute('data-cartProdIndex')]['qty'] -= 1; 
-    } else {
+    // if (cart[e.target.getAttribute('data-cartProdIndex')]['qty']> 1) {
+    //     cart[e.target.getAttribute('data-cartProdIndex')]['qty'] -= 1; 
+    // } else {
         cart.splice(e.target.getAttribute('data-cartProdIndex'),1)
-    }
+    // }
     updateCart()
 }
 
@@ -495,7 +528,7 @@ function showPayment(){
     sectionPay.append(sectionPayTitle);
     sectionPay.append(card);
 
-    const containerForm = document.createElement('div');
+    const containerForm = document.createElement('FORM');
     containerForm.classList.add('containerForm');
 
     const labelCardNum = document.createElement('LABEL');
@@ -607,7 +640,7 @@ function showPayment(){
     })
 
 
-    formCardExp.addEventListener('input', ()=>{
+    containerForm.addEventListener('input', ()=>{
         btnFinalPay.classList.add('disabled')
         cardExp.innerText = "vto ";
         formExpErrorMsg.innerText = ""
@@ -641,7 +674,7 @@ function showPayment(){
         }
 
 
-        if(((!(isNaN(Number(formCardExp.value)))) && formCardExp.value != "" && ((Number(formCardExp.value.slice(2)) - currentYear) < 20)) && !(Number(formCardExp.value.slice(0,2))>12 || Number(formCardExp.value.slice(0,2))<1) && !((Number(formCardExp.value.slice(2)) === currentYear && Number(formCardExp.value.slice(0,2)) < currentMonth) || (Number(formCardExp.value.slice(2)) < currentYear))){
+        if(((!(isNaN(Number(formCardExp.value)))) && formCardExp.value != "" && ((Number(formCardExp.value.slice(2)) - currentYear) < 20 && (Number(formCardExp.value.slice(2)) - currentYear) >= 0)) && !(Number(formCardExp.value.slice(0,2))>12 || Number(formCardExp.value.slice(0,2))<1) && !((Number(formCardExp.value.slice(2)) === currentYear && Number(formCardExp.value.slice(0,2)) < currentMonth) || (Number(formCardExp.value.slice(2)) < currentYear))){
             expCheck = true;
         } 
 
@@ -655,7 +688,7 @@ function showPayment(){
                 titleText: 'Gracias por tu compra',
                 allowEnterKey: true,
                 showConfirmButton: true,
-                showCloseButton: true,
+                showCloseButton: true
             })
             e.target.classList.add('paid');
             e.target.innerHTML = `<i class="fa-solid fa-check"></i> ¡Pagado!`;
@@ -665,6 +698,7 @@ function showPayment(){
         })
     })
         function renderCartPayment(){
+            sectionCart.innerHTML = ""
             const cartPaymentCloseBtn = document.createElement('BUTTON');
             cartPaymentCloseBtn.classList.add()
             cartPaymentCloseBtn.classList.add('cartPaymentCloseBtn')
@@ -693,9 +727,22 @@ function showPayment(){
                 const paymentCartProdTitle = document.createElement('P');
                 paymentCartProdTitle.classList.add('paymentCartProd-title');
                 
+                const btnMinusCart = document.createElement("BUTTON");
+                btnMinusCart.classList.add('btnMinusCart');
+                btnMinusCart.setAttribute("data-cartProdIndex",index)
+                btnMinusCart.innerHTML = `<i class="fa-solid fa-minus"></i>`;
+
                 const paymentCartProdQty = document.createElement('P');
                 paymentCartProdQty.classList.add('paymentCartProd-qty');
                 
+                const btnPlusCart = document.createElement("BUTTON");
+                btnPlusCart.classList.add('btnPlusCart');
+                btnPlusCart.setAttribute("data-cartProdIndex",index)
+                btnPlusCart.innerHTML = `<i class="fa-solid fa-plus"></i>`;
+
+                const containerQtyCart = document.createElement("DIV");
+                containerQtyCart.classList.add('containerQtyCart')
+
                 const paymentCartProdPrice = document.createElement('P');
                 paymentCartProdPrice.classList.add('paymentCartProd-price');
                 
@@ -708,9 +755,15 @@ function showPayment(){
                 paymentCartProdQty.innerText = `${product.qty} u.`;
                 paymentCartProdPrice.innerText = `$${priceDot(product.price*product.qty)}`;
                 
+
+                
+                containerQtyCart.append(btnMinusCart)
+                containerQtyCart.append(paymentCartProdQty)
+                containerQtyCart.append(btnPlusCart)
+
                 paymentCartProd.append(paymentCartProdImg);
                 paymentCartProd.append(paymentCartProdTitle);
-                paymentCartProd.append(paymentCartProdQty);
+                paymentCartProd.append(containerQtyCart);
                 paymentCartProd.append(paymentCartProdPrice);
                 paymentCartProd.append(paymentCartProdBtnDelete);
         
@@ -760,6 +813,23 @@ function showPayment(){
                     sectionCart.innerHTML = "";
                     renderCartPayment()
             })});
+
+            const btnsMinusCart = document.querySelectorAll('.btnMinusCart')
+            const btnsPlusCart = document.querySelectorAll('.btnPlusCart')
+    
+            btnsMinusCart.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    reduceCartProd(e);
+                    renderCartPayment()
+                })
+            });
+    
+            btnsPlusCart.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    incrementCartProd(e);
+                    renderCartPayment()
+                })
+            });
         }
 
         renderCartPayment()
@@ -769,6 +839,7 @@ function showPayment(){
             closePaymentModal();
         })
         
+
 
     }
 
@@ -836,26 +907,38 @@ function updateCartAddBtn(){
 }
 
 function reduceCartProd(e){
+    let prodIndexAux = e.target.parentNode.getAttribute('data-prodIndex') || e.target.parentNode.getAttribute('data-cartProdIndex');
+    if (e.target.parentNode.getAttribute('data-cartProdIndex')) {
+        cart[e.target.parentNode.getAttribute('data-cartProdIndex')]['qty'] -= 1;
+        if (cart[e.target.parentNode.getAttribute('data-cartProdIndex')]["qty"] == 0) {
+            cart.splice(e.target.parentNode.getAttribute('data-cartProdIndex'),1)
+        }
+    } else{
+        let productAux = products.findIndex(product => product.code == prodIndexAux);
+        if(cart.find(prod => prod.code == products[productAux].code) !== -1){
+            let index = cart.findIndex(prod => prod.code == products[productAux].code)
+            cart[index]["qty"] -= 1; 
+            if (cart[index]["qty"] == 0) {
+                cart.splice(index,1)
+            }
 
-    let prodIndexAux = e.target.parentNode.getAttribute('data-prodIndex');
-    let productAux = products.findIndex(product => product.code == prodIndexAux);
-
-    if(cart.find(prod => prod.code == products[productAux].code)){
-        let index = cart.findIndex(prod => prod.code == products[productAux].code)
-        cart[index]["qty"] -= 1; 
-    } 
-
-    updateCart()
+        }
+    }
+    updateCart();
 }
 
 function incrementCartProd(e){
-    let prodIndexAux = e.target.parentNode.getAttribute('data-prodIndex');
+    let prodIndexAux = e.target.parentNode.getAttribute('data-prodIndex') || e.target.parentNode.getAttribute('data-cartProdIndex');
     let productAux = products.findIndex(product => product.code == prodIndexAux);
+    if (e.target.parentNode.getAttribute('data-cartProdIndex')) {
+        cart[e.target.parentNode.getAttribute('data-cartProdIndex')]['qty'] += 1;
+    } else{
+        if(cart.find(prod => prod.code == products[productAux].code) !== -1){
+            let index = cart.findIndex(prod => prod.code == products[productAux].code)
+            cart[index]["qty"] += 1; 
 
-    if(cart.find(prod => prod.code == products[productAux].code)){
-        let index = cart.findIndex(prod => prod.code == products[productAux].code)
-        cart[index]["qty"] += 1; 
-    } 
+        }
+    }
 
-    updateCart()
+    updateCart();
 }

@@ -69,6 +69,7 @@
 .btnAdd.inCart{
     width: 45%;
     background-color: darkslateblue;
+    margin-right: 5px;
 }
 .containerProdCartInfo{
     display: none;
@@ -80,13 +81,7 @@
     align-items: center;
     gap: 5px;
 }
-.btnMinus, .btnPlus{
-    border: none;
-    outline: none;
-    padding: 8px;
-    font-size: 0.9rem;
-    background: transparent;
-}
+/*  */
 .prodQty{
     padding: 8px;
     font-size: 0.9rem;
@@ -504,8 +499,8 @@ footer i{
     overflow: hidden;
 }
 .paymentModal{
-    width: 88%;
-    max-width: 850px;
+    width: 93%;
+    max-width: 1000px;
     height: 90%;
     background-color: #FFF;
     border-radius: 15px;
@@ -728,4 +723,49 @@ footer i{
 
 .cartPaymentCloseBtn i{
     font-size: 2rem;
+}
+
+.btnMinusCart .fa-minus, .btnPlusCart .fa-plus{
+    padding: 5px;
+    border: 1px solid darkslateblue;
+    border-radius: 50%;
+}
+.btnMinusCart .fa-minus:active, .btnPlusCart .fa-plus:active{
+    background-color: darkslateblue;
+    color: white;
+    border-color: white;
+}
+
+.btnMinusCart, .btnPlusCart{
+    background: transparent;
+    border: none;
+    outline: none;
+    
+}
+
+.containerQtyCart{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+}
+
+.btnMinus .fa-minus:active, .btnPlus .fa-plus:active{
+    background-color: darkslateblue;
+    color: white;
+    border-color: white;
+}
+
+.btnMinus .fa-minus, .btnPlus .fa-plus{
+    padding: 5px;
+    border: 1px solid darkslateblue;
+    border-radius: 50%;
+    font-size: 0.9rem;
+}
+
+.btnMinus, .btnPlus{
+    background: transparent;
+    border: none;
+    outline: none;
 }
