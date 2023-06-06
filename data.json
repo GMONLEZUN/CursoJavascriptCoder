@@ -59,7 +59,7 @@
         "description":"Composición: 100% Carbono\nCurva: 25 mm a 200 mm con canaleta\nMedidas: 37.5",
         "price":210654,
         "category":"Palos",
-        "image":["./Images/bravo-eliteone-1.jpg","./Images/bravo-eliteone-1.jpg"],
+        "image":["./Images/bravo-eliteone-1.jpg","./Images/bravo-eliteone-2.jpg"],
         "stock":11
     },
     {
@@ -68,7 +68,7 @@
         "description":"Composición: 90% Carbono - 5% Fibra de Vidrio - 5% Aramida\nCurva: Baja\nMedidas: 37.5\nPeso: Light",
         "price":226233,
         "category":"Palos",
-        "image":["./Images/adidas2022-ina-1.jpg","./Images/adidas2022-ina-1.jpg"],
+        "image":["./Images/adidas2022-ina-1.jpg","./Images/adidas2022-ina-2.jpg"],
         "stock":6
     },
     {

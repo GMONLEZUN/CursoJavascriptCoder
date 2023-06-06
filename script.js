@@ -1,42 +1,13 @@
-
-// CONSTRUCTOR DE PRODUCTOS -----------------------------------------------------------------------------------------------------
-
-function Product (code, nameProd, description, price, category, image, stock = 0) {
-    this.code = code;
-    this.nameProd = nameProd;
-    this.description = description;
-    this.price = price;
-    this.category = category; 
-    this.image = image;
-    this.stock = stock;
-    this.sumaIva = function(){
-        this.price = this.price * 1.21;
-    };
-    this.updateStock = function(value){
-        this.stock += value;
-    }
-}
-
-
-let code = 1;
 let products = [];
 
-function newProduct(nameProd, description, price, category, image){
-    let prod = new Product(code, nameProd, description, price, category, image);
-    products.push(prod);
-    code++;
+const retrieveProdData = async ()=>{
+    const resp = await fetch("./data.json");
+    const data = await resp.json();
+    products = data;
+    showProducts()
 }
 
-// PRODUCTOS            -----------------------------------------------------------------------------------------------------
-
-newProduct("Palo TK 2023 Xtreme", "Composición: Carbono 100% Medida: 37.5\" Curva: Low Bow Es un palo flexible gracias a su composición. Su curvatura Low Bow se adapta a cualquier tipo de juego. Recomendado para jugadores profesionales.",99000,"Palos","./Images/palotk.webp");
-
-newProduct("Bolso TK Alpha", "Es el bolso perfecto para los jugadores profesionales. Medidas: Largo: 100 cm Ancho: 32 cm Profundidad: 18 cm",89000,"Bolsos", "./Images/bolsotk.jfif");
-newProduct("Guante izquierdo Adidas Ultimate 2022", "Composición: Lycra y plástico Medida: M",15000,"Guantes", "./Images/guante_adidas.jpg");
-newProduct("Guante derecho Grays Anatomic Pro", "Composición: Lycra y plástico Medida: S",13000,"Guantes", "./Images/guante_grays.webp");
-newProduct("Bocha de hockey TK Essential", "color: blanco",3500,"Accesorios", "./Images/bocha.jfif");
-newProduct("Medias largas Adidas", "Composición: Poliester 99% Medida: M",4000,"Accesorios", "./Images/medias_adidas.jfif");
-
+retrieveProdData()
 
 
 let cart = [];
@@ -52,34 +23,119 @@ let cartDeleteButtons;
 function showProducts(prods = products){
     principal.innerHTML = "";
 
+    const prodCounter = document.createElement('div');
+    prodCounter.innerHTML = `<span class="prodCounterValue">${prods.length}</span> productos`
+    prodCounter.classList.add('prodCounter');
+    principal.append(prodCounter);
+
     prods.map((product,index) =>{
         
         const containerProd = document.createElement('DIV');
-        const imageProd = document.createElement('IMG')
+        containerProd.setAttribute('data-prodIndex',product.code);
+
+        const imgContainer = document.createElement('DIV');
+        imgContainer.classList.add('imgContainer')
         const titleProd = document.createElement('H3');
-        // const descriptionProd = document.createElement('P');
         const priceProd = document.createElement("H2");
-        const btnAdd = document.createElement("BUTTON")
+        const btnAddContainer = document.createElement('DIV');
+        const btnAdd = document.createElement("BUTTON");
+        const containerProdCartInfo = document.createElement('DIV');
+        const btnPlus = document.createElement("BUTTON");
+        const btnMinus = document.createElement("BUTTON");
+        const prodQty = document.createElement("span");
+
 
         titleProd.innerText = product.nameProd;
         priceProd.innerText = `$${priceDot(product.price)}`;
-        imageProd.src = product.image;
         btnAdd.innerText = "Agregar al carrito";
 
         containerProd.classList.add('containerProd');
         titleProd.classList.add('titleProd');
         priceProd.classList.add('priceProd');
         btnAdd.classList.add('btnAdd');
+        btnAddContainer.classList.add('btnAddContainer');
+        containerProdCartInfo.classList.add('containerProdCartInfo');
+        btnPlus.classList.add('btnPlus');
+        btnPlus.innerHTML = `<i class="fa-solid fa-plus"></i>`;
+        btnMinus.classList.add('btnMinus');
+        btnMinus.innerHTML = `<i class="fa-solid fa-minus"></i>`;
+        prodQty.classList.add('prodQty');
+       
         
-        btnAdd.setAttribute('data-prodIndex',index);
+        btnAdd.setAttribute('data-prodIndex',product.code);
+        btnMinus.setAttribute('data-prodIndex',product.code);
+        btnPlus.setAttribute('data-prodIndex',product.code);
+        containerProdCartInfo.setAttribute('data-prodIndex',product.code);
         
-        containerProd.append(imageProd)
-        containerProd.append(titleProd);
-        containerProd.append(priceProd)
-        containerProd.append(btnAdd)
+        if(product.image.length > 1){
+            
+            const dotContainer = document.createElement('div');
+            dotContainer.classList.add('dotContainer');
+            dotContainer.setAttribute('data-prodIndex',product.code);
 
-        principal.append(containerProd)
+      
+
+            product.image.forEach((image,index) => {
+                const imageProd = document.createElement('IMG');
+                imageProd.src = image;
+                if (index == 0) {
+                    imageProd.classList.add('active')
+                }
+                const dot = document.createElement('div');
+                dot.classList.add('dotImg');
+                dot.dataset.numImg = index;
+                imgContainer.append(imageProd);
+                dotContainer.append(dot);
+            });
+            dotContainer.firstChild.classList.add('active');
+
+
+            imgContainer.append(dotContainer);
+        } else {
+            const imageProd = document.createElement('IMG');
+                imageProd.src = product.image;
+                imageProd.classList.add('active');
+                imgContainer.append(imageProd);
+        }
+        containerProd.append(imgContainer)
+        containerProd.append(titleProd);
+        containerProd.append(priceProd);
+        btnAddContainer.append(btnAdd);
+        containerProdCartInfo.append(btnMinus);
+        containerProdCartInfo.append(prodQty);
+        containerProdCartInfo.append(btnPlus);
+        btnAddContainer.append(containerProdCartInfo);
+        containerProd.append(btnAddContainer);
+
+        principal.append(containerProd);
+
     })
+
+    const addButtons = document.querySelectorAll('.btnAdd');
+
+    addButtons.forEach(btn => {
+        btn.addEventListener('click', e => {
+            addToCart(e);
+        })
+    });
+
+
+    imgSwitch();
+    const btnMinusAll = document.querySelectorAll('.btnMinus');
+    btnMinusAll.forEach(btn => {
+        btn.addEventListener('click', e => {
+            reduceCartProd(e);
+        })
+    })
+    
+    const btnPlusAll = document.querySelectorAll('.btnPlus');
+    btnPlusAll.forEach(btn => {
+        btn.addEventListener('click', e => {
+            incrementCartProd(e);
+        })
+    })
+    updateCartAddBtn();
+
 }
 
 
@@ -89,7 +145,6 @@ const cartContProds = document.querySelector('.cartContProds');
 // ACTUALIZAR CARRITO     -----------------------------------------------------------------------------------------------------
 
 function updateCart(){
- 
     cartContProds.innerHTML = ""
     
     const containerTitleCart = document.createElement('div');
@@ -133,7 +188,7 @@ function updateCart(){
         cartProdBtnDelete.classList.add('deleteBtn');
         cartProdBtnDelete.innerHTML = `<i class="fa-solid fa-trash-can" data-cartProdIndex="${index}"></i>`
 
-        cartProdImg.src = product.image
+        cartProdImg.src = product.image[0]
         cartProdTitle.innerText = product.nameProd;
         cartProdQty.innerText = `${product.qty} u.`;
         cartProdPrice.innerText = `$${priceDot(product.price*product.qty)}`;
@@ -206,7 +261,9 @@ function updateCart(){
     })
 
     cartJSON = JSON.stringify(cart);
-    localStorage.setItem("cartStored", cartJSON)
+    localStorage.setItem("cartStored", cartJSON);
+
+    updateCartAddBtn();
 }
 
 // VACIAR CARRITO           -----------------------------------------------------------------------------------------------------
@@ -288,7 +345,7 @@ function priceDot(price){
 
 // INICIO -----------------------------------------------------------------------------------------------------
 
-showProducts();
+
 let cartJSON = localStorage.getItem("cartStored")
 
 if (cartJSON){
@@ -298,28 +355,27 @@ if (cartJSON){
 
 // AGREGAR PRODUCTO DEL CARRITO-----------------------------------------------------------------------------------------------------
 
-const addButtons = document.querySelectorAll('.btnAdd');
-
 
 function addToCart(e){
     let prodCart = {};
-
-    if(cart.find(prod => prod.code === products[e.target.getAttribute('data-prodIndex')].code)){
-        let index = cart.findIndex(prod => prod.code === products[e.target.getAttribute('data-prodIndex')].code)
+    let prodIndexAux;
+    if(!(e.target.getAttribute('data-prodIndex'))){
+        prodIndexAux = e.target.parentNode.getAttribute('data-prodIndex');
+    } else {
+        prodIndexAux = e.target.getAttribute('data-prodIndex');
+    }
+    let productAux = products.findIndex(product => product.code == prodIndexAux)
+    if(cart.find(prod => prod.code == products[productAux].code)){
+        let index = cart.findIndex(prod => prod.code == products[productAux].code)
         cart[index]["qty"] += 1; 
     } else {
-        prodCart = {...products[e.target.getAttribute('data-prodIndex')], "qty": 1}
+        prodCart = {...products[productAux], "qty": 1}
         cart.push(prodCart)
     }
 
     updateCart()
 }
 
-addButtons.forEach(btn => {
-    btn.addEventListener('click', e => {
-        addToCart(e);
-    })
-});
 
 
 // CATEGORIAS -----------------------------------------------------------------------------------------------------
@@ -381,8 +437,17 @@ function search(){
             productsAux.push(prod)
         }
     })
-    showProducts(productsAux);
-    searchInput.value = "";
+    if (productsAux.length == 0) {
+        principal.innerHTML = "";
+        const msgErrorSearch = document.createElement('div');
+        msgErrorSearch.innerHTML = `No hay resultados para la búsqueda: ${searchInput.value}`;
+        principal.append(msgErrorSearch);
+        msgErrorSearch.style.gridColumnStart = "span 5";
+        searchInput.value = "";
+    } else {
+        showProducts(productsAux);
+        searchInput.value = "";
+    }
 }
 
 function showPayment(){
@@ -512,7 +577,6 @@ function showPayment(){
                 valueAuxArr.push(" ")
             }
         })
-        console.log(formNumErrorMsg)
         if (isNaN(Number(formCardNum.value) && formCardNum.value != "")) {
             formNumErrorMsg.style.display = "block";
             formNumErrorMsg.innerText = "Error: número inválido"
@@ -585,8 +649,19 @@ function showPayment(){
             btnFinalPay.classList.remove('disabled')
         }
         btnFinalPay.addEventListener('click', (e)=>{
+            Swal.fire({
+                icon: 'success',
+                title: 'Pago aprobado',
+                titleText: 'Gracias por tu compra',
+                allowEnterKey: true,
+                showConfirmButton: true,
+                showCloseButton: true,
+            })
             e.target.classList.add('paid');
             e.target.innerHTML = `<i class="fa-solid fa-check"></i> ¡Pagado!`
+            closePaymentModal();
+            emptyCart();
+
         })
     })
         function renderCartPayment(){
@@ -626,7 +701,7 @@ function showPayment(){
                 paymentCartProdBtnDelete.classList.add('paymentDeleteBtn');
                 paymentCartProdBtnDelete.innerHTML = `<i class="fa-solid fa-trash-can" data-cartProdIndex="${index}"></i>`
         
-                paymentCartProdImg.src = product.image
+                paymentCartProdImg.src = product.image[0];
                 paymentCartProdTitle.innerText = product.nameProd;
                 paymentCartProdQty.innerText = `${product.qty} u.`;
                 paymentCartProdPrice.innerText = `$${priceDot(product.price*product.qty)}`;
@@ -680,7 +755,6 @@ function showPayment(){
             paymentCartDeleteButtons.forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     deleteProdCart(e)
-                    // paymentCartProds.forEach(item => item.remove())
                     sectionCart.innerHTML = "";
                     renderCartPayment()
             })});
@@ -692,9 +766,87 @@ function showPayment(){
             const paymentContainer = document.querySelector('.paymentContainer');
             paymentContainer.style.display = 'none';
         }
-    
+}
+
+function imgSwitch(){
+    const dotImgs = document.querySelectorAll('.dotImg');
+
+    dotImgs.forEach(dotImg=>{
+        dotImg.addEventListener('click',(e)=>{
+
+            e.target.parentNode.childNodes.forEach(child=>{
+                child.classList.remove('active');
+            })
+            
+            e.target.parentNode.parentNode.childNodes.forEach(child=>{
+                child.classList.remove('active');
+            })
+            e.target.classList.add('active')
+            const prodAux = e.target.parentNode.getAttribute('data-prodindex');
+            const numImg = e.target.getAttribute('data-num-img');
+            e.target.parentNode.parentNode.childNodes[numImg].classList.add('active')
+        })
+    })
 
 }
 
-// showPayment()
 
+
+function updateCartAddBtn(){
+    const containerProdCartInfo = document.querySelectorAll('.containerProdCartInfo');
+    
+    
+    containerProdCartInfo.forEach(container => {
+        let prodIndexAux = container.getAttribute('data-prodIndex');
+        let productAux = products.findIndex(product => product.code == prodIndexAux);
+
+        if(cart.find(prod => prod.code === products[productAux].code)){
+            if (!(container.classList.contains('active'))) {
+                container.classList.add('active');
+                container.parentNode.firstChild.classList.add('inCart')
+                container.parentNode.firstChild.innerHTML = `<i class="fa-solid fa-cart-shopping">`
+            }
+            let index = cart.findIndex(prod => prod.code === products[productAux].code);
+            if (cart[index]["qty"]<1) {
+                if (container.classList.contains('active')) {
+                    container.classList.remove('active');
+                    container.parentNode.firstChild.classList.remove('inCart');
+                    container.parentNode.firstChild.innerHTML = `Agregar al carrito`;
+                }
+            }
+            container.childNodes[1].innerHTML = cart[index]["qty"];
+        } else {
+            if (container.classList.contains('active')) {
+                container.classList.remove('active');
+                container.parentNode.firstChild.classList.remove('inCart');
+                container.parentNode.firstChild.innerHTML = `Agregar al carrito`;
+            }
+        }
+
+    })
+}
+
+function reduceCartProd(e){
+
+    let prodIndexAux = e.target.parentNode.getAttribute('data-prodIndex');
+    let productAux = products.findIndex(product => product.code == prodIndexAux);
+
+    if(cart.find(prod => prod.code == products[productAux].code)){
+        let index = cart.findIndex(prod => prod.code == products[productAux].code)
+        cart[index]["qty"] -= 1; 
+    } 
+
+    updateCart()
+}
+
+function incrementCartProd(e){
+    let prodIndexAux = e.target.parentNode.getAttribute('data-prodIndex');
+    let productAux = products.findIndex(product => product.code == prodIndexAux);
+
+    if(cart.find(prod => prod.code == products[productAux].code)){
+        let index = cart.findIndex(prod => prod.code == products[productAux].code)
+        cart[index]["qty"] += 1; 
+    } 
+
+    updateCart()
+}
