@@ -1,3 +1,5 @@
+
+// ME TRAIGO LOS PRODUCTOS DEL JSON
 let products = [];
 
 const retrieveProdData = async ()=>{
@@ -9,7 +11,7 @@ const retrieveProdData = async ()=>{
 
 retrieveProdData()
 
-
+// INICIALIZO EL CARRITO
 let cart = [];
 let cartAux = [];
 const principal = document.querySelector('.principal');
@@ -18,7 +20,7 @@ const sectCart = document.querySelector('.cart');
 let cartDeleteButtons;
 
 
-// MOSTRAR LOS PRODUCTOS     -----------------------------------------------------------------------------------------------------
+// MOSTRAR LOS PRODUCTOS EN EL HOME   -----------------------------------------------------------------------------------------------------
 
 function showProducts(prods = products){
     principal.innerHTML = "";
@@ -67,13 +69,13 @@ function showProducts(prods = products){
         btnPlus.setAttribute('data-prodIndex',product.code);
         containerProdCartInfo.setAttribute('data-prodIndex',product.code);
         
+        // MUESTRA LAS FOTOS DE LOS PRODUCTOS SI TIENE MÁS DE UNA
+
         if(product.image.length > 1){
             
             const dotContainer = document.createElement('div');
             dotContainer.classList.add('dotContainer');
             dotContainer.setAttribute('data-prodIndex',product.code);
-
-      
 
             product.image.forEach((image,index) => {
                 const imageProd = document.createElement('IMG');
@@ -87,16 +89,17 @@ function showProducts(prods = products){
                 imgContainer.append(imageProd);
                 dotContainer.append(dot);
             });
+
             dotContainer.firstChild.classList.add('active');
-
-
             imgContainer.append(dotContainer);
+
         } else {
             const imageProd = document.createElement('IMG');
                 imageProd.src = product.image;
                 imageProd.classList.add('active');
                 imgContainer.append(imageProd);
         }
+
         containerProd.append(imgContainer)
         containerProd.append(titleProd);
         containerProd.append(priceProd);
@@ -121,6 +124,7 @@ function showProducts(prods = products){
 
 
     imgSwitch();
+
     const btnMinusAll = document.querySelectorAll('.btnMinus');
     btnMinusAll.forEach(btn => {
         btn.addEventListener('click', e => {
@@ -134,6 +138,7 @@ function showProducts(prods = products){
             incrementCartProd(e);
         })
     })
+
     updateCartAddBtn();
 
 }
@@ -246,9 +251,9 @@ function updateCart(){
     btnCartEmpty.addEventListener('click', () => emptyCart());
     btnCartPay.addEventListener('click', () => {
         toggleModal();
-        showPayment()})
+        showPayment();
+    })
     
-
     const cartDeleteButtons = document.querySelectorAll('.deleteBtn');
 
     cartDeleteButtons.forEach(btn => {
@@ -293,6 +298,7 @@ function updateCart(){
         toggleModal()
     })
 
+    // GUARDO LOS CAMBIOS EN EL LOCALSTORAGE
     cartJSON = JSON.stringify(cart);
     localStorage.setItem("cartStored", cartJSON);
 
@@ -310,16 +316,9 @@ function emptyCart(){
 // BORRAR PRODUCTO DEL CARRITO-----------------------------------------------------------------------------------------------------
 
 function deleteProdCart(e){
-
-    // if (cart[e.target.getAttribute('data-cartProdIndex')]['qty']> 1) {
-    //     cart[e.target.getAttribute('data-cartProdIndex')]['qty'] -= 1; 
-    // } else {
-        cart.splice(e.target.getAttribute('data-cartProdIndex'),1)
-    // }
+    cart.splice(e.target.getAttribute('data-cartProdIndex'),1)
     updateCart()
 }
-
-
 
 // MODAL CART EVENTOS        -----------------------------------------------------------------------------------------------------
 
@@ -335,14 +334,13 @@ function toggleModal(){
 }
 
 btnCart.addEventListener('click',()=>{
-    modalCart.classList.toggle('active');
-    updateCart();
+    toggleModal();
 })
 
 modalCart.addEventListener('click', (e) => {
-        modalCart.classList.toggle('active');
-        e.stopImmediatePropagation();
-        updateCart();
+    modalCart.classList.toggle('active');
+    e.stopImmediatePropagation();
+    updateCart();
 })
 
 cartSector.addEventListener('click', (e)=>{
@@ -373,11 +371,9 @@ function priceDot(price){
     }
     price = price.join("")
     return price;
-
 }
 
-// INICIO -----------------------------------------------------------------------------------------------------
-
+// VERIFICO SI HAY PRODUCTOS EN EL LOCALSTORAGE PARA CARGARLOS AL CARRITO -----------------------------------------------------------------------------------------------------
 
 let cartJSON = localStorage.getItem("cartStored")
 
@@ -387,7 +383,6 @@ if (cartJSON){
 }
 
 // AGREGAR PRODUCTO DEL CARRITO-----------------------------------------------------------------------------------------------------
-
 
 function addToCart(e){
     let prodCart = {};
@@ -409,9 +404,7 @@ function addToCart(e){
     updateCart()
 }
 
-
-
-// CATEGORIAS -----------------------------------------------------------------------------------------------------
+// FILTRAR POR CATEGORIAS -----------------------------------------------------------------------------------------------------
 
 const categories = document.querySelector('.category');
 
@@ -431,18 +424,16 @@ categories.childNodes.forEach(category => {
 })
 
 
-// BUSQUEDA -----------------------------------------------------------------------------------------------------
+// BÚSQUEDA -----------------------------------------------------------------------------------------------------
 
 const searchInput = document.querySelector('.searchInput');
 const searchBtn = document.querySelector('.searchBtn');
 
-searchBtn.addEventListener('click', () => search())
-searchInput.addEventListener('change', () => search())
+searchInput.addEventListener('change', () => search());
 
 
 function search(){
-    let productsAux = []
-
+    let productsAux = [];
     let foundDescription = products.filter(prod => prod.description.toLowerCase().includes(searchInput.value.toLowerCase())) 
     let foundTitle = products.filter(prod => prod.nameProd.toLowerCase().includes(searchInput.value.toLowerCase())) 
     let foundCat = products.filter(prod => prod.category.toLowerCase().includes(searchInput.value.toLowerCase())) 
@@ -477,11 +468,14 @@ function search(){
         principal.append(msgErrorSearch);
         msgErrorSearch.style.gridColumnStart = "span 5";
         searchInput.value = "";
+
     } else {
         showProducts(productsAux);
         searchInput.value = "";
     }
 }
+
+// MOSTRAR MODAL DE PAGO -----------------------------------------------------------------------------------------------------
 
 function showPayment(){
     const paymentContainer = document.createElement('div');
@@ -578,7 +572,6 @@ function showPayment(){
     containerForm.append(formExpErrorMsg)
     containerForm.append(btnFinalPay);
 
-
     sectionPay.append(containerForm);
 
     paymentModal.append(sectionPay);
@@ -639,7 +632,6 @@ function showPayment(){
         }
     })
 
-
     containerForm.addEventListener('input', ()=>{
         btnFinalPay.classList.add('disabled')
         cardExp.innerText = "vto ";
@@ -673,7 +665,6 @@ function showPayment(){
             }
         }
 
-
         if(((!(isNaN(Number(formCardExp.value)))) && formCardExp.value != "" && ((Number(formCardExp.value.slice(2)) - currentYear) < 20 && (Number(formCardExp.value.slice(2)) - currentYear) >= 0)) && !(Number(formCardExp.value.slice(0,2))>12 || Number(formCardExp.value.slice(0,2))<1) && !((Number(formCardExp.value.slice(2)) === currentYear && Number(formCardExp.value.slice(0,2)) < currentMonth) || (Number(formCardExp.value.slice(2)) < currentYear))){
             expCheck = true;
         } 
@@ -682,19 +673,30 @@ function showPayment(){
             btnFinalPay.classList.remove('disabled')
         }
         btnFinalPay.addEventListener('click', (e)=>{
-            Swal.fire({
-                icon: 'success',
-                title: 'Pago aprobado',
-                titleText: 'Gracias por tu compra',
-                allowEnterKey: true,
-                showConfirmButton: true,
-                showCloseButton: true
-            })
+            e.preventDefault();
             e.target.classList.add('paid');
             e.target.innerHTML = `<i class="fa-solid fa-check"></i> ¡Pagado!`;
-            closePaymentModal();
-            emptyCart();
-
+            let timerInterval;
+            Swal.fire({
+            icon: 'success',
+            title: 'Pago aprobado',
+            html: 'Cerrando en <b></b> segundos.',
+            timer: 5000,
+            timerProgressBar: true,
+            didOpen: () => {
+                Swal.showLoading()
+                const b = Swal.getHtmlContainer().querySelector('b')
+                timerInterval = setInterval(() => {
+                b.textContent = Math.ceil(Swal.getTimerLeft()/1000)
+                }, 1000)
+            },
+            willClose: () => {
+                clearInterval(timerInterval)
+                }
+            }).then(() => {
+                closePaymentModal();
+                emptyCart(); 
+            })     
         })
     })
         function renderCartPayment(){
@@ -715,7 +717,6 @@ function showPayment(){
                 closePaymentModal();
             })
 
-          
             cart.map((product, index) => {
         
                 const paymentCartProd = document.createElement('DIV');
@@ -755,8 +756,6 @@ function showPayment(){
                 paymentCartProdQty.innerText = `${product.qty} u.`;
                 paymentCartProdPrice.innerText = `$${priceDot(product.price*product.qty)}`;
                 
-
-                
                 containerQtyCart.append(btnMinusCart)
                 containerQtyCart.append(paymentCartProdQty)
                 containerQtyCart.append(btnPlusCart)
@@ -769,7 +768,6 @@ function showPayment(){
         
                 sectionCart.append(paymentCartProd)
             }) 
-
 
             const paymentTotalSep = document.createElement('HR');
             paymentTotalSep.classList.add('paymentTotalSep');
@@ -796,16 +794,12 @@ function showPayment(){
             
             body.append(paymentContainer);
 
-
-    
-
             paymentBtnCartEmpty.addEventListener('click', () => {
                 emptyCart();
                 closePaymentModal()
             });
             
             const paymentCartDeleteButtons = document.querySelectorAll('.paymentDeleteBtn');
-            
         
             paymentCartDeleteButtons.forEach(btn => {
                 btn.addEventListener('click', (e) => {
@@ -838,16 +832,15 @@ function showPayment(){
         paymentClose.addEventListener('click', ()=>{
             closePaymentModal();
         })
-        
-
-
     }
 
+// FUNCION PARA CERRAR EL MODAL DE PAGO -----------------------------------------------------------------------------------------------------
 function closePaymentModal(){
     const paymentContainer = document.querySelector('.paymentContainer');
     paymentContainer.style.display = 'none';
 }
 
+// CAMBIAR DE IMAGENES EN LOS PRODUCTOS EN EL HOME -----------------------------------------------------------------------------------------------------
 function imgSwitch(){
     const dotImgs = document.querySelectorAll('.dotImg');
 
@@ -870,12 +863,10 @@ function imgSwitch(){
 
 }
 
-
-
+// FUNCION PARA ACTUALIZAR LOS BOTONES DE ADD EN EL HOME CUANDO CAMBIA EL CARRITO -----------------------------------------------------------------------------------------------------
 function updateCartAddBtn(){
     const containerProdCartInfo = document.querySelectorAll('.containerProdCartInfo');
-    
-    
+
     containerProdCartInfo.forEach(container => {
         let prodIndexAux = container.getAttribute('data-prodIndex');
         let productAux = products.findIndex(product => product.code == prodIndexAux);
@@ -906,6 +897,7 @@ function updateCartAddBtn(){
     })
 }
 
+// BOTÓN - EN EL CARRITO -----------------------------------------------------------------------------------------------------
 function reduceCartProd(e){
     let prodIndexAux = e.target.parentNode.getAttribute('data-prodIndex') || e.target.parentNode.getAttribute('data-cartProdIndex');
     if (e.target.parentNode.getAttribute('data-cartProdIndex')) {
@@ -927,6 +919,7 @@ function reduceCartProd(e){
     updateCart();
 }
 
+// BOTÓN + EN EL CARRITO -----------------------------------------------------------------------------------------------------
 function incrementCartProd(e){
     let prodIndexAux = e.target.parentNode.getAttribute('data-prodIndex') || e.target.parentNode.getAttribute('data-cartProdIndex');
     let productAux = products.findIndex(product => product.code == prodIndexAux);
@@ -939,6 +932,5 @@ function incrementCartProd(e){
 
         }
     }
-
     updateCart();
 }

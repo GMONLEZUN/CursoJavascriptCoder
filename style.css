@@ -68,8 +68,12 @@
 }
 .btnAdd.inCart{
     width: 45%;
-    background-color: darkslateblue;
+    background-color: #252525;
     margin-right: 5px;
+}
+
+.btnAdd.inCart:active{
+    background-color: rgb(53, 100, 53)
 }
 .containerProdCartInfo{
     display: none;
@@ -323,6 +327,9 @@
     align-items: center;
     padding: 24px 16px;
 }
+.cartProd:hover{
+background-color: #25252510;
+}
 
 .cartProd-title{
     width: 30%;
@@ -346,6 +353,7 @@
 .cartPay{
     margin-top: 32px;
     padding: 12px 0;
+    border-radius: 5px;
     font-size: 1.0rem;
     color: white;
     background-color: #252525;
@@ -643,6 +651,7 @@ footer i{
     padding: 8px 0;
     font-size: 1rem;
     font-weight: 700;
+    border-radius: 5px;
     color: #FFF;
     background-color: #252525;
     letter-spacing: 1px;
@@ -730,8 +739,15 @@ footer i{
     border: 1px solid darkslateblue;
     border-radius: 50%;
 }
-.btnMinusCart .fa-minus:active, .btnPlusCart .fa-plus:active{
-    background-color: darkslateblue;
+
+.btnMinusCart .fa-minus:active{
+    background-color: rgb(141, 52, 67);
+    color: white;
+    border-color: white;
+}
+
+.btnPlusCart .fa-plus:active{
+    background-color: rgb(53, 100, 53);
     color: white;
     border-color: white;
 }
@@ -750,9 +766,14 @@ footer i{
     justify-content: center;
     align-items: center;
 }
+.btnMinus .fa-minus:active{
+    background-color: rgb(141, 52, 67);
+    color: white;
+    border-color: white; 
+}
 
-.btnMinus .fa-minus:active, .btnPlus .fa-plus:active{
-    background-color: darkslateblue;
+.btnPlus .fa-plus:active{
+    background-color: rgb(53, 100, 53);
     color: white;
     border-color: white;
 }
